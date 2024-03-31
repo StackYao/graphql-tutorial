@@ -68,4 +68,31 @@ const UserList = [
     }
 ]
 
-module.exports = {UserList}
+const MovieList = [
+    {
+        id: 1,
+        name: "Avengers Endgame",
+        yearOfPublication: 2019,
+        isInThreaters: true,
+    },
+    {
+        id: 2,
+        name: "Kill Bill",
+        yearOfPublication: 2009,
+        isInThreaters: true,
+    },
+    {
+        id: 3,
+        name: "Interstella",
+        yearOfPublication: 2017,
+        isInThreaters: true,
+    },
+    {
+        id: 4,
+        name: "Thompson Family",
+        yearOfPublication: 2021,
+        isInThreaters: false,
+    },
+]
+
+module.exports = {UserList, MovieList}
