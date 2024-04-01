@@ -1,4 +1,4 @@
-const { UserList, MovieList } = require("../FakeData");
+let { UserList, MovieList } = require("../FakeData");
 const _ = require("lodash");
 
 // this will be data source that graphql works and process the data
@@ -25,7 +25,9 @@ const resolvers = {
       return _.find(MovieList, { name });
     },
   },
+  // when query User,
   User: {
+    // which movie for specific user
     favoriteMovies: () => {
       return _.filter(
         MovieList,
@@ -34,6 +36,32 @@ const resolvers = {
       );
     },
   },
+  Mutation: {
+    createUser: (parent, args) => {
+      const user = args.input;
+      const lastId = UserList[UserList.length-1].id;
+      user.id = lastId + 1;
+      UserList.push(user)
+      return user;
+    },
+    updateUsername: (parent, args) => {
+      const {id, newUsername} = args.input
+      let newUser
+      UserList.forEach((user) => {
+        if(user.id === Number(id)) {
+          user.username = newUsername
+          newUser = user
+        }
+      })
+      return newUser
+    },
+    deleteUserById: (parent, args) => {
+      const id = args.id
+      const delUser = _.find(UserList, {"id": Number(id)})
+      UserList = UserList.filter(item => item.id !== Number(id))
+      return delUser
+    }
+  }
 };
 
 module.exports = { resolvers };
